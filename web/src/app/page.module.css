@@ -1,0 +1,30 @@
+.main {
+  width: min(var(--container), calc(100% - 40px));
+  margin-inline: auto;
+  padding: 48px 20px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.lead {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.link {
+  color: var(--brand2);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link:focus-visible {
+  outline: none;
+  border-radius: 4px;
+  box-shadow: var(--focus);
+}
