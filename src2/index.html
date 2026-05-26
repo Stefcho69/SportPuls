@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SportenPuls — спортни новини</title>
+    <meta name="description" content="Примерен модерен сайт за спортни новини (HTML + CSS + JS)." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Към съдържанието</a>
+
+    <header class="header">
+      <div class="container header__inner">
+        <a class="brand" href="#" aria-label="SportPulse начало">
+          <span class="brand__mark" aria-hidden="true">SP</span>
+          <span class="brand__name">SportenPuls</span>
+        </a>
+
+        <nav class="nav" aria-label="Основна навигация">
+          <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="navMenu">
+            <span class="nav__toggleIcon" aria-hidden="true"></span>
+            <span class="srOnly">Меню</span>
+          </button>
+          <div class="nav__menu" id="navMenu">
+            <a class="nav__link is-active" href="#news">Новини</a>
+            <a class="nav__link" href="#highlights">Акценти</a>
+            <a class="nav__link" href="#scores">Резултати</a>
+            <a class="nav__link" href="#newsletter">Бюлетин</a>
+          </div>
+        </nav>
+
+        <div class="header__actions">
+          <button class="iconBtn" type="button" id="themeBtn" aria-pressed="false" title="Смяна на тема">
+            <span class="iconBtn__icon" aria-hidden="true">◐</span>
+            <span class="srOnly">Смяна на тема</span>
+          </button>
+          <button class="pillBtn" type="button" id="bookmarksBtn" title="Любими">
+            Любими <span class="pillBtn__badge" id="bookmarksCount">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <div class="chips" aria-label="Бързи категории">
+              <button class="chip is-selected" type="button" data-filter="all">Всички</button>
+              <button class="chip" type="button" data-filter="football">Футбол</button>
+              <button class="chip" type="button" data-filter="basketball">Баскетбол</button>
+              <button class="chip" type="button" data-filter="tennis">Тенис</button>
+              <button class="chip" type="button" data-filter="motorsport">Моторспорт</button>
+            </div>
+
+            <h1 class="hero__title">Спортни новини, които се усещат като на живо.</h1>
+            <p class="hero__subtitle">
+              Модерен примерен дизайн с търсене, филтри и любими — само с HTML, CSS и JavaScript.
+            </p>
+
+            <div class="search">
+              <label class="srOnly" for="searchInput">Търсене</label>
+              <input
+                id="searchInput"
+                class="search__input"
+                type="search"
+                placeholder="Търси: отбор, играч, турнир…"
+                autocomplete="off"
+              />
+              <button class="search__btn" type="button" id="clearSearchBtn">Изчисти</button>
+            </div>
+
+            <div class="hero__meta">
+              <div class="metaCard">
+                <div class="metaCard__kpi" id="kpiCount">—</div>
+                <div class="metaCard__label">новини днес</div>
+              </div>
+              <div class="metaCard">
+                <div class="metaCard__kpi" id="kpiUpdated">—</div>
+                <div class="metaCard__label">последно обновяване</div>
+              </div>
+              <div class="metaCard">
+                <div class="metaCard__kpi" id="kpiBookmarks">0</div>
+                <div class="metaCard__label">в любими</div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero__aside" aria-label="Акцент">
+            <div class="featureCard" id="featureCard">
+              <div class="featureCard__top">
+                <span class="tag" id="featureTag">Акцент</span>
+                <span class="dotSep" aria-hidden="true">•</span>
+                <span class="muted" id="featureTime">—</span>
+              </div>
+              <h2 class="featureCard__title" id="featureTitle">—</h2>
+              <p class="featureCard__desc" id="featureDesc">—</p>
+              <div class="featureCard__actions">
+                <button class="primaryBtn" type="button" id="featureReadBtn">Прочети</button>
+                <button class="ghostBtn" type="button" id="featureSaveBtn">Запази</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="news" aria-labelledby="newsTitle">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title" id="newsTitle">Последни новини</h2>
+            <div class="section__right">
+              <div class="select">
+                <label class="srOnly" for="sortSelect">Подреди</label>
+                <select id="sortSelect" class="select__control">
+                  <option value="latest">Най-нови</option>
+                  <option value="popular">Най-четени</option>
+                </select>
+              </div>
+              <div class="toggle">
+                <input id="onlyBreaking" class="toggle__input" type="checkbox" />
+                <label class="toggle__label" for="onlyBreaking">Само “Breaking”</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid" id="newsGrid" aria-live="polite"></div>
+
+          <div class="empty" id="emptyState" hidden>
+            <div class="empty__title">Няма резултати</div>
+            <div class="empty__desc">Пробвай с друга дума или махни филтрите.</div>
+            <button class="primaryBtn" type="button" id="resetFiltersBtn">Нулирай</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="highlights" aria-labelledby="highlightsTitle">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title" id="highlightsTitle">Акценти</h2>
+            <p class="section__hint">Къс формат: бързи истории и тенденции.</p>
+          </div>
+          <div class="highlights" id="highlightsList"></div>
+        </div>
+      </section>
+
+      <section class="section" id="scores" aria-labelledby="scoresTitle">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title" id="scoresTitle">Резултати (пример)</h2>
+            <p class="section__hint">Фиктивни резултати за демонстрация.</p>
+          </div>
+          <div class="scores" id="scoresTable" role="table" aria-label="Резултати"></div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="newsletter" aria-labelledby="newsletterTitle">
+        <div class="container">
+          <div class="newsletter">
+            <div class="newsletter__content">
+              <h2 class="newsletter__title" id="newsletterTitle">Бюлетин “SportPulse”</h2>
+              <p class="newsletter__desc">
+                Получавай най-важното веднъж дневно. (Демо форма — не праща имейли.)
+              </p>
+              <form class="newsletter__form" id="newsletterForm">
+                <label class="srOnly" for="emailInput">Имейл</label>
+                <input id="emailInput" class="newsletter__input" type="email" placeholder="you@example.com" required />
+                <button class="primaryBtn" type="submit">Абонирай се</button>
+              </form>
+              <div class="formNote" id="newsletterNote" role="status" aria-live="polite"></div>
+            </div>
+            <div class="newsletter__aside" aria-hidden="true">
+              <div class="newsletter__blob"></div>
+              <div class="newsletter__stats">
+                <div class="stat">
+                  <div class="stat__num">5</div>
+                  <div class="stat__label">спорта</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__num">0</div>
+                  <div class="stat__label">реклами</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__num">1</div>
+                  <div class="stat__label">страница</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <span class="brand__mark brand__mark--sm" aria-hidden="true">SP</span>
+          <span class="muted">© <span id="year"></span> SportPulse. Demo проект.</span>
+        </div>
+        <div class="footer__right">
+          <a class="footer__link" href="#news">Към новините</a>
+          <a class="footer__link" href="#newsletter">Бюлетин</a>
+          <a class="footer__link" href="#" id="scrollTop">Нагоре</a>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="modal" id="articleModal" aria-label="Статия">
+      <form method="dialog" class="modal__inner">
+        <button class="modal__close" value="close" aria-label="Затвори">✕</button>
+        <div class="modal__meta">
+          <span class="tag" id="modalTag">—</span>
+          <span class="dotSep" aria-hidden="true">•</span>
+          <span class="muted" id="modalTime">—</span>
+          <span class="dotSep" aria-hidden="true">•</span>
+          <span class="muted" id="modalReads">—</span>
+        </div>
+        <h3 class="modal__title" id="modalTitle">—</h3>
+        <p class="modal__lead" id="modalLead">—</p>
+        <div class="modal__body" id="modalBody"></div>
+        <div class="modal__actions">
+          <button class="ghostBtn" type="button" id="modalSaveBtn">Запази</button>
+          <button class="primaryBtn" value="close">Готово</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="bookmarksModal" aria-label="Любими">
+      <form method="dialog" class="modal__inner">
+        <button class="modal__close" value="close" aria-label="Затвори">✕</button>
+        <div class="modal__meta">
+          <span class="tag">Любими</span>
+          <span class="dotSep" aria-hidden="true">•</span>
+          <span class="muted" id="bookmarksMeta">—</span>
+        </div>
+        <h3 class="modal__title">Запазени статии</h3>
+        <div class="modal__body" id="bookmarksList"></div>
+        <div class="modal__actions">
+          <button class="ghostBtn" type="button" id="clearBookmarksBtn">Изчисти</button>
+          <button class="primaryBtn" value="close">Затвори</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
